@@ -1,4 +1,4 @@
-import Heading from "../components/Heading";
+import Heading from "../../components/Heading";
 const Portfolio = () => {
   return <Heading text="Portfolio" />;
 };
