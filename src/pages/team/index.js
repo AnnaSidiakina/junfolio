@@ -1,5 +1,6 @@
 import Heading from "../../components/Heading";
 import Image from "next/image";
+import Link from "next/link";
 
 export const getStaticProps = async () => {
   const response = await fetch("http://localhost:3000/api/team");
@@ -24,10 +25,12 @@ const Team = ({ team }) => {
         {team &&
           team.map(({ _id, category, email, name, photoUrl }) => (
             <li key={_id}>
-              <p>{category}</p>
-              <p>{email}</p>
-              <p>{name}</p>
-              <Image src={photoUrl} alt="photo" width={200} height={200} />
+              <Link href={`/team/${_id}`}>
+                <p>{category}</p>
+                <p>{email}</p>
+                <p>{name}</p>
+                <Image src={photoUrl} alt="photo" width={200} height={200} />
+              </Link>
             </li>
           ))}
       </ul>

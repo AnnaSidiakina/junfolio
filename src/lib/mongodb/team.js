@@ -1,4 +1,5 @@
 import clientPromise from ".";
+import { ObjectId } from "mongodb";
 
 let client;
 let db;
@@ -50,6 +51,54 @@ export async function addTeam(body) {
     return { e: "Failed to add team member" };
   }
 }
-// let bodyObject = JSON.parse(req.body);
-//       let teamMember = await db.collection("team").insertOne(bodyObject);
-//       res.json(teamMember.ops[0]);
+
+export async function getTeamMemberById(id) {
+  try {
+    if (!team) await init();
+    await init();
+
+    const result = await team.findOne({ _id: new ObjectId(id) });
+
+    return { teamMember: result };
+  } catch (e) {
+    return { e: "Failed to fetch team member" };
+  }
+}
+
+// export async function getTeamMemberById(id) {
+//   try {
+//     if (!team) await init();
+//     await init();
+
+//     const result = await team
+//       .aggregate([
+//         {
+//           $match: {
+//             _id: new ObjectId(id),
+//           },
+//         },
+//         {
+//           $lookup: {
+//             from: "portfolio",
+//             localField: "portfolio",
+//             foreignField: "_id",
+//             as: "portfolio",
+//           },
+//         },
+//         {
+//           $teamMember: {
+//             _id: { $toString: "$_id" },
+//             imageUrl: 1,
+//             category: 1,
+//             name: 1,
+//             email: 1,
+//           },
+//         },
+//       ])
+//       .toArray();
+
+//     return { teamMember: result[0] };
+//   } catch (e) {
+//     return { e: "Failed to fetch team member" };
+//   }
+// }

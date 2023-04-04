@@ -22,15 +22,3 @@ const handler = async (req, res) => {
   res.status(425).end(`Method ${req.method} is not allowed.`);
 };
 export default handler;
-//    const client = await clientPromise;
-//   const db = client.db("junfolio");
-//   switch (req.method) {
-//     case "POST":
-//       let bodyObject = JSON.parse(req.body);
-//       let teamMember = await db.collection("team").insertOne(bodyObject);
-//       res.json(teamMember.ops[0]);
-//       break;
-//     case "GET":
-//       const allTeam = await db.collection("team").find({}).toArray();
-//       res.json({ status: 200, data: allTeam });
-//       break;
