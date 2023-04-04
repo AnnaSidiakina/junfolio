@@ -1,11 +1,17 @@
-import { getProjects } from "@component/lib/mongodb/projects";
+import { getProjectById } from "@component/lib/mongodb/projects";
 
 const handler = async (req, res) => {
-  if (req.method === "GET") {
+  const {
+    method,
+    query: { id },
+    body,
+  } = req;
+
+  if (method === "GET") {
     try {
-      const { projects, error } = await getProjects();
+      const { project, error } = await getProjectById(id);
       if (error) throw new Error(error);
-      return res.status(200).json({ projects: projects });
+      return res.status(200).json({ project });
     } catch (e) {
       return res.status(500).json({ e: e.message });
     }
