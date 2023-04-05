@@ -50,6 +50,7 @@ const Team = ({ team }) => {
             </li>
           ))}
       </ul>
+      <div></div>
     </>
   );
 };
