@@ -24,55 +24,32 @@
 // export default handler;
 
 import dbConnect from "@component/lib/mongodb/dbConnect";
-import TeamMember from "@component/models/TeamMember";
+import TeamMember from "@component/models/teamMember";
 
-export const getTeamMembers = async (req, res) => {
-    await dbConnect();
-    console.log(res);
-  try {
-    const team = await TeamMember.find({});
-    console.log("team", team);
-    res.status(200).json({ data: team });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch team" });
-  }
-};
+export default async function handler(req, res) {
+  const { method } = req;
 
-export const addTeamMember = async (req, res) => {
   await dbConnect();
-  try {
-    const teamMember = await TeamMember.create(req.body);
-    res.status(201).json({ success: true, data: teamMember });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to add a team member" });
+
+  switch (method) {
+    case "GET":
+      try {
+        const team = await TeamMember.find({});
+        res.status(200).json(team);
+      } catch (error) {
+        res.status(400).json({ success: false });
+      }
+      break;
+    case "POST":
+      try {
+        const teamMember = await TeamMember.create(req.body);
+        res.status(201).json({ success: true, teamMember });
+      } catch (error) {
+        res.status(400).json({ success: false });
+      }
+      break;
+    default:
+      res.status(400).json({ success: false });
+      break;
   }
-};
-
-// export default async function handler(req, res) {
-//   const { method } = req;
-
-//   await dbConnect();
-
-//   switch (method) {
-//     case "GET":
-//       try {
-//         const team = await TeamMember.find({});
-//         console.log("team", team);
-//         res.status(200).json({ success: true, data: team });
-//       } catch (error) {
-//         res.status(400).json({ success: false });
-//       }
-//       break;
-//     case "POST":
-//       try {
-//         const teamMember = await TeamMember.create(req.body);
-//         res.status(201).json({ success: true, data: teamMember });
-//       } catch (error) {
-//         res.status(400).json({ success: false });
-//       }
-//       break;
-//     default:
-//       res.status(400).json({ success: false });
-//       break;
-//   }
-// }
+}

@@ -1,18 +1,31 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, SchemaType } from "mongoose";
 
-const TeamMemberSchema = new Schema({
-  name: {
-    type: String,
+const teamMemberSchema = Schema(
+  {
+    name: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
+    category: {
+      type: String,
+    },
+    photoUrl: {
+      type: String,
+    },
+    portfolio: {
+      type: Array,
+      ref: "Project",
+    },
   },
-  email: {
-    type: String,
-  },
-  category: {
-    type: String,
-  },
-  // portfolio: Array,
-});
 
-const TeamMember = models.TeamMember || model("teamMember", TeamMemberSchema);
+  {
+    timestamps: true,
+    versionKey: false,
+  }
+);
+
+const TeamMember = models.teamMember || model("teamMember", teamMemberSchema);
 
 export default TeamMember;
