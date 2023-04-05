@@ -1,10 +1,12 @@
 import Heading from "../../components/Heading";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const response = await fetch(`${BACKEND_BASE_URL}/api/team`);
   const data = await response.json();
 
@@ -20,17 +22,23 @@ export const getStaticProps = async () => {
 };
 
 const Team = ({ team }) => {
+  const [teamList, setTeamList] = useState(team);
+  const router = useRouter();
   const handleClick = async (id) => {
-    await fetch(`${BACKEND_BASE_URL}/api/team/${id}`, {
-      method: "Delete",
+    const url = new URL(`http://localhost:3000/api/team/${id}`);
+    const response = await fetch(url, {
+      method: "DELETE",
     });
+    const data = await response.json();
+    console.log(data);
+    setTeamList(data);
   };
   return (
     <>
       <Heading text="Our team" />
       <ul>
-        {team &&
-          team.map(({ _id, category, email, name, photoUrl }) => (
+        {teamList &&
+          teamList.map(({ _id, category, email, name, photoUrl }) => (
             <li key={_id}>
               <Link href={`/team/${_id}`}>
                 <p>{category}</p>
@@ -42,6 +50,7 @@ const Team = ({ team }) => {
             </li>
           ))}
       </ul>
+      <div></div>
     </>
   );
 };
