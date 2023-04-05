@@ -1,5 +1,5 @@
 import dbConnect from "@component/lib/mongodb/dbConnect";
-import TeamMember from "@component/models/teamMember";
+import TeamMember from "@component/models/TeamMember";
 export default async function handler(req, res) {
   const {
     method,
@@ -19,7 +19,8 @@ export default async function handler(req, res) {
     case "DELETE":
       try {
         await TeamMember.findByIdAndRemove(id);
-        res.status(200).json("Team member is deleted");
+        const team = await TeamMember.find({});
+        res.status(200).json(team);
       } catch (error) {
         res.status(500).json({ success: false });
       }
