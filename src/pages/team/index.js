@@ -1,10 +1,12 @@
 import Heading from "../../components/Heading";
 import Image from "next/image";
 import Link from "next/link";
+import { getTeamMembers } from "../api/team";
 
-export const getStaticProps = async () => {
-  const response = await fetch("http://localhost:3000/api/team");
-  const data = await response.json();
+export const getServerSideProps = async () => {
+  // const response = await fetch("http://localhost:3000/api/team");
+  const data = await getTeamMembers();
+  console.log(data);
 
   if (!data) {
     return {
@@ -13,7 +15,7 @@ export const getStaticProps = async () => {
   }
 
   return {
-    props: { team: data.team },
+    props: { team: data },
   };
 };
 
@@ -21,7 +23,7 @@ const Team = ({ team }) => {
   return (
     <>
       <Heading text="Our team" />
-      <ul>
+      {/* <ul>
         {team &&
           team.map(({ _id, category, email, name, photoUrl }) => (
             <li key={_id}>
@@ -33,7 +35,7 @@ const Team = ({ team }) => {
               </Link>
             </li>
           ))}
-      </ul>
+      </ul> */}
     </>
   );
 };

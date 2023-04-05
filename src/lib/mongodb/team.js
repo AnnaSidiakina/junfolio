@@ -8,6 +8,7 @@ let team;
 async function init() {
   if (db) return;
   try {
+    console.log(t);
     client = await clientPromise;
     db = await client.db();
     team = await db.collection("team");
