@@ -1,10 +1,15 @@
 import TeamMemberInfo from "@component/components/TeamMemberInfo";
 
+const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
+
 export const getServerSideProps = async (context) => {
   const { id } = context.query;
 
-  const response = await fetch(`http://localhost:3000/api/team/${id}`);
-  const { teamMember } = await response.json();
+  console.log(context);
+
+  const response = await fetch(`${BACKEND_BASE_URL}/api/team/${id}`);
+
+  const teamMember = await response.json();
 
   if (!teamMember) {
     return {

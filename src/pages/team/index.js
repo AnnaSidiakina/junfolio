@@ -2,8 +2,10 @@ import Heading from "../../components/Heading";
 import Image from "next/image";
 import Link from "next/link";
 
+const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
+
 export const getStaticProps = async () => {
-  const response = await fetch("http://localhost:3000/api/team");
+  const response = await fetch(`${BACKEND_BASE_URL}/api/team`);
   const data = await response.json();
 
   if (!data) {
@@ -13,11 +15,16 @@ export const getStaticProps = async () => {
   }
 
   return {
-    props: { team: data.team },
+    props: { team: data },
   };
 };
 
 const Team = ({ team }) => {
+  const handleClick = async (id) => {
+    await fetch(`${BACKEND_BASE_URL}/api/team/${id}`, {
+      method: "Delete",
+    });
+  };
   return (
     <>
       <Heading text="Our team" />
@@ -31,6 +38,7 @@ const Team = ({ team }) => {
                 <p>{name}</p>
                 <Image src={photoUrl} alt="photo" width={200} height={200} />
               </Link>
+              <button onClick={() => handleClick(_id)}>Delete</button>
             </li>
           ))}
       </ul>
