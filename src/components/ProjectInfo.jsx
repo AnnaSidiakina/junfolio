@@ -14,14 +14,15 @@ const ProjectInfo = ({ project }) => {
       <a href={link}>explore project</a>
       <Heading tag="h4" text="Team of developers" />
       <ul>
-        {team.map(({ _id, name, email, category, photoUrl }) => (
-          <li key={_id}>
-            <Heading tag="h5" text={name} />
-            <p>{email}</p>
-            <p>{category}</p>
-            <Image src={photoUrl} alt="photo" width={200} height={200} />
-          </li>
-        ))}
+        {team &&
+          team.map(({ _id, name, email, category, photoUrl }) => (
+            <li key={_id}>
+              <Heading tag="h5" text={name} />
+              <p>{email}</p>
+              <p>{category}</p>
+              <Image src={photoUrl} alt="photo" width={200} height={200} />
+            </li>
+          ))}
       </ul>
     </>
   );

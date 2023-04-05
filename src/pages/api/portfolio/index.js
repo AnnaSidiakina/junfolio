@@ -9,19 +9,31 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const projects = await Project.find(); //.populate("team");
+        const projects = await Project.find().sort({ createdAt: "desc" }); //.populate("team");
 
-        res.status(200).json(projects);
+        return res.status(200).json(projects);
       } catch (error) {
-        res.status(400).json({ success: false, msg: error });
+        return res
+          .status(404)
+          .json({ success: false, msg: "Failed to get projects" });
       }
-      break;
 
     case "POST":
-      break;
+      try {
+        const project = await Project.create(req.body);
+
+        return status(200).json(project);
+      } catch (error) {
+        return res
+          .status(404)
+          .json({ success: false, msg: "Failed to post projects" });
+      }
 
     default:
-      res.status(400).json({ success: false });
-      break;
+      res.setHeaders("Allow", ["GET", "POST"]);
+      return res
+        .status(405)
+        .json({ success: false })
+        .end(`Method ${method} Not Allowed`);
   }
 }

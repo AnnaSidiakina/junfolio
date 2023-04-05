@@ -27,6 +27,6 @@ const teamMemberSchema = Schema(
   }
 );
 
-const TeamMember = models.teamMember || model("teamMember", teamMemberSchema);
+const TeamMember = models.TeamMember || model("TeamMember", teamMemberSchema);
 
 export default TeamMember;

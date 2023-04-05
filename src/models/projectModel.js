@@ -1,4 +1,5 @@
 import { Schema, model, models } from "mongoose";
+import TeamMember from "./TeamMember";
 
 const projectSchema = Schema(
   {
@@ -18,7 +19,7 @@ const projectSchema = Schema(
     team: [
       {
         type: Schema.Types.ObjectId,
-        ref: "TeamMember",
+        ref: TeamMember,
       },
     ],
   },
