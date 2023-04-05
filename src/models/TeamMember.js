@@ -2,6 +2,7 @@ import { Schema, model, models, SchemaType } from "mongoose";
 
 const teamMemberSchema = Schema(
   {
+    _id: Schema.Types.ObjectId,
     name: {
       type: String,
     },

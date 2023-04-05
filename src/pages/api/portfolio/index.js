@@ -1,18 +1,27 @@
-import { getProjects } from "@component/lib/mongodb/projects";
+import dbConnect from "@component/lib/mongodb/dbConnect";
+import Project from "@component/models/projectModel";
 
-const handler = async (req, res) => {
-  if (req.method === "GET") {
-    try {
-      const { projects, error } = await getProjects();
-      if (error) throw new Error(error);
-      return res.status(200).json({ projects: projects });
-    } catch (e) {
-      return res.status(500).json({ e: e.message });
-    }
+export default async function handler(req, res) {
+  const { method } = req;
+
+  await dbConnect();
+
+  switch (method) {
+    case "GET":
+      try {
+        const projects = await Project.find(); //.populate("team");
+
+        res.status(200).json(projects);
+      } catch (error) {
+        res.status(400).json({ success: false, msg: error });
+      }
+      break;
+
+    case "POST":
+      break;
+
+    default:
+      res.status(400).json({ success: false });
+      break;
   }
-
-  res.setHeader("Allow", ["GET"]);
-  res.status(425).end(`Method ${req.method} is not allowed.`);
-};
-
-export default handler;
+}

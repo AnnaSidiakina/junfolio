@@ -4,9 +4,9 @@ import Link from "next/link";
 
 export const getStaticProps = async () => {
   const response = await fetch("http://localhost:3000/api/portfolio");
-  const { projects } = await response.json();
+  const res = await response.json();
 
-  if (!projects) {
+  if (!res) {
     return {
       notFound: true,
     };
@@ -14,7 +14,7 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      portfolio: projects,
+      portfolio: res,
     },
   };
 };
