@@ -2,7 +2,7 @@ import dbConnect from "@component/lib/mongodb/dbConnect";
 import TeamMember from "@component/models/TeamMember";
 
 export default async function handler(req, res) {
-  const { method } = req;
+  const { method, body } = req;
 
   await dbConnect();
 
@@ -12,19 +12,26 @@ export default async function handler(req, res) {
         const team = await TeamMember.find({});
         res.status(200).json(team);
       } catch (error) {
-        res.status(400).json({ success: false });
+        return res.status(400).json({ success: false });
       }
       break;
     case "POST":
       try {
-        const teamMember = await TeamMember.create(req.body);
-        res.status(201).json({ success: true, teamMember });
+        if (!body) {
+          return;
+        }
+        const teamMember = await TeamMember.create(body);
+        res.status(201).json(teamMember);
       } catch (error) {
-        res.status(400).json({ success: false });
+        console.log(error.message);
+        return res.status(400).json({ success: false });
       }
       break;
     default:
-      res.status(400).json({ success: false });
-      break;
+      res.setHeaders("Allow", ["GET", "POST"]);
+      return res
+        .status(405)
+        .json({ success: false })
+        .end(`Method ${method} Not Allowed`);
   }
 }

@@ -1,24 +1,32 @@
-import { Schema, model, models, SchemaType } from "mongoose";
+import { Schema, model, models, SchemaTypes } from "mongoose";
 
 const teamMemberSchema = Schema(
   {
-    _id: Schema.Types.ObjectId,
-    name: {
+    firstName: {
+      type: String,
+    },
+    lastName: {
       type: String,
     },
     email: {
       type: String,
     },
-    category: {
+    stack: {
       type: String,
     },
     photoUrl: {
       type: String,
     },
-    portfolio: {
-      type: Array,
-      ref: "Project",
+    allowed: {
+      type: Boolean,
+      default: false,
     },
+    portfolio: [
+      {
+        type: Schema.ObjectId,
+        ref: "Project",
+      },
+    ],
   },
 
   {
