@@ -5,9 +5,9 @@ export const getServerSideProps = async (context) => {
   const { id } = context.query;
 
   const response = await fetch(`http://localhost:3000/api/portfolio/${id}`);
-  const { project } = await response.json();
+  const res = await response.json();
 
-  if (!project) {
+  if (!res) {
     return {
       notFound: true,
     };
@@ -15,7 +15,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      project,
+      project: res,
     },
   };
 };

@@ -2,6 +2,7 @@ import { Schema, model, models, SchemaType } from "mongoose";
 
 const teamMemberSchema = Schema(
   {
+    _id: Schema.Types.ObjectId,
     name: {
       type: String,
     },
@@ -26,6 +27,6 @@ const teamMemberSchema = Schema(
   }
 );
 
-const TeamMember = models.teamMember || model("teamMember", teamMemberSchema);
+const TeamMember = models.TeamMember || model("TeamMember", teamMemberSchema);
 
 export default TeamMember;
