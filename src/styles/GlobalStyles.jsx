@@ -29,6 +29,10 @@ const GlobalStyles = createGlobalStyle`
         text-decoration: none;
         color: inherit;
     }
+
+    main {
+        height: 100vh;
+    }
 `;
 
 export default GlobalStyles;
