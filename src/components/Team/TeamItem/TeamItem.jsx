@@ -5,7 +5,7 @@ import avatar from "../../../../public/images/avatar.jpg";
 const TeamItem = ({ teamMember, handleClick }) => {
   <div>
     <Link href={`/team/${teamMember._id}`}>
-      <p>{teamMember.stack}</p>
+      <p>Role: {teamMember.stack}</p>
 
       <p>
         <span>{teamMember.firstName} </span>

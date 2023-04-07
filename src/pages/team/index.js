@@ -57,10 +57,10 @@ const Team = ({ team }) => {
       <JoinTeamForm onSubmit={handleSubmit} />
       {team && (
         <ul>
-          {teamList.map(({ _id, stack, firstName, lastName, photoUrl }) => (
+          {teamList.map(({ _id, role, firstName, lastName, photoUrl }) => (
             <li key={_id}>
               <Link href={`/team/${_id}`}>
-                <p>{stack}</p>
+                <p>Role: {role}</p>
 
                 <p>
                   <span>{firstName} </span>

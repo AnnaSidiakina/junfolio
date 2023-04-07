@@ -2,13 +2,15 @@ import dbConnect from "@component/lib/mongodb/dbConnect";
 import TeamMember from "@component/models/TeamMember";
 
 export default async function handler(req, res) {
-  const { method, body } = req;
+  const { method, body, params } = req;
+  // console.log(req);
 
   await dbConnect();
 
   switch (method) {
     case "GET":
       try {
+        // const { role } = req.params;
         const team = await TeamMember.find({});
         res.status(200).json(team);
       } catch (error) {

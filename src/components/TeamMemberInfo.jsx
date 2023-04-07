@@ -5,7 +5,7 @@ const TeamMemberInfo = ({ teamMember }) => {
   if (!teamMember) {
     return <Heading tag="h3" text="There is no info!" />;
   }
-  const { photoUrl, firstName, lastName, stack, email, portfolio } = teamMember;
+  const { photoUrl, firstName, lastName, role, email, portfolio } = teamMember;
   console.log(portfolio);
   return (
     <>
@@ -28,8 +28,8 @@ const TeamMemberInfo = ({ teamMember }) => {
         {email}
       </div>
       <div>
-        <strong>Stack: </strong>
-        {stack}
+        <strong>Role: </strong>
+        {role}
       </div>
       {/* {portfolio > 0 && (
         <ul>
