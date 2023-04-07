@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import JoinTeamForm from "@component/components/JoinTeamForm/JoinTeamForm";
+import avatar from "../../../public/images/avatar.jpg";
+// import TeamItem from "@component/components/Team/TeamItem/TeamItem";
 
 const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
 
@@ -24,7 +26,6 @@ export const getServerSideProps = async () => {
 
 const Team = ({ team }) => {
   const [teamList, setTeamList] = useState(team);
-  // console.log("teamList", teamList);
 
   const router = useRouter();
 
@@ -34,13 +35,26 @@ const Team = ({ team }) => {
       method: "DELETE",
     });
     const data = await response.json();
-    // console.log(data);
-    // setTeamList(data);
+    setTeamList(data);
   };
+
+  const handleSubmit = async (data) => {
+    console.log(data);
+    const url = new URL(`http://localhost:3000/api/team`);
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log(response.status); // log response status code
+    const res = await response.json();
+    console.log(res); // log parsed response body
+  };
+
   return (
     <>
       <Heading text="Our team" />
-      <JoinTeamForm />
+      <JoinTeamForm onSubmit={handleSubmit} />
       {team && (
         <ul>
           {teamList.map(({ _id, stack, firstName, lastName, photoUrl }) => (
@@ -52,15 +66,20 @@ const Team = ({ team }) => {
                   <span>{firstName} </span>
                   <span>{lastName}</span>
                 </p>
-                <Image src={photoUrl} alt="photo" width={200} height={200} />
+                {photoUrl ? (
+                  <Image src={photoUrl} alt="photo" width={200} height={200} />
+                ) : (
+                  <Image src={avatar} alt="photo" width={200} height={200} />
+                )}
               </Link>
               <button onClick={() => handleClick(_id)}>Delete</button>
             </li>
+            // <li key={teamMember._id}>
+            //   <TeamItem teamMember={teamMember} handleClick={handleClick} />
+            // </li>
           ))}
         </ul>
       )}
-
-      <div></div>
     </>
   );
 };

@@ -24,7 +24,7 @@ export default async function handler(req, res) {
         res.status(201).json(teamMember);
       } catch (error) {
         console.log(error.message);
-        return res.status(400).json({ success: false });
+        return res.status(400).json(error.message);
       }
       break;
     default:

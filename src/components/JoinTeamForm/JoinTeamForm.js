@@ -12,7 +12,7 @@ import {
   FormButton,
 } from "./JoinTeamForm.styled";
 
-const JoinTeamForm = () => {
+const JoinTeamForm = ({ onSubmit }) => {
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("Name is required"),
     lastName: Yup.string().required("Name is required"),
@@ -29,29 +29,6 @@ const JoinTeamForm = () => {
 
   const [newTeamMember, setNewTeamMember] = useState({});
   const url = new URL("http://localhost:3000/api/team");
-
-  // const [result, error] = useSSE(async () => {
-  //   return await fetch(url, {
-  //     method: "POST",
-  //     body: newTeamMember,
-  //     // body: JSON.stringify(data),
-  //   }).then((response) => response.json());
-  // }, [newTeamMember]);
-  // console.log("result", result);
-  // console.log("newTeamMember", newTeamMember);
-
-  const onSubmit = (data) => {
-    console.log("data", data);
-    setNewTeamMember(data);
-
-    // const response = await fetch(url, {
-    //   method: "POST",
-    //   body: jsonData,
-    //   // body: JSON.stringify(data),
-    // });
-    console.log("json", JSON.stringify(data));
-    // const res = await response.json();
-  };
 
   return (
     <FormContainer>
