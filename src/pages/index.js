@@ -1,8 +1,15 @@
+import { Section } from "@component/components/Section.styled";
+import { Container } from "@component/components/Container.styled";
+
 export default function Home() {
   return (
     <div>
       <main>
-        <h1>Home</h1>
+        <Section>
+          <Container>
+            <h1>Home</h1>
+          </Container>
+        </Section>
       </main>
     </div>
   );
