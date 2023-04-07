@@ -9,7 +9,7 @@ import avatar from "../../../public/images/avatar.jpg";
 
 const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const response = await fetch(`${BACKEND_BASE_URL}/api/team`);
   const data = await response.json();
 

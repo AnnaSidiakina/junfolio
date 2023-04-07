@@ -14,7 +14,7 @@ import Image from "next/image";
 
 const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const response = await fetch(`${BACKEND_BASE_URL}/api/portfolio`);
   const res = await response.json();
 
