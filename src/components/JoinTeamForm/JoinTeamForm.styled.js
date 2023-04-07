@@ -14,6 +14,13 @@ export const FormField = styled.input`
   padding: 10px 20px;
   border-radius: 10px;
 `;
+export const CheckboxField = styled.input`
+  margin: 0 10px;
+`;
+export const CheckboxGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const FormFieldSelect = styled.select`
   width: 100%;

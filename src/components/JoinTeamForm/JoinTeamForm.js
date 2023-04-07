@@ -8,8 +8,10 @@ import {
   Form,
   FormField,
   FormFieldSelect,
+  CheckboxField,
   FormItem,
   FormButton,
+  CheckboxGroup,
 } from "./JoinTeamForm.styled";
 
 const JoinTeamForm = ({ onSubmit }) => {
@@ -17,7 +19,7 @@ const JoinTeamForm = ({ onSubmit }) => {
     firstName: Yup.string().required("Name is required"),
     lastName: Yup.string().required("Name is required"),
     email: Yup.string().required("Email is required"),
-    stack: Yup.string().required("Stack is required"),
+    role: Yup.array().required("Role is required"),
     photoUrl: Yup.string(),
     isAllowed: Yup.bool(),
     portfolio: Yup.array(),
@@ -59,10 +61,69 @@ const JoinTeamForm = ({ onSubmit }) => {
             />
           </FormItem>
           <FormItem>
-            <label>Stack*</label>
+            <p>Role*</p>
+            <CheckboxGroup>
+              <label>
+                <CheckboxField
+                  name="role"
+                  type="checkbox"
+                  {...register("role")}
+                  value="Fullstack"
+                />
+                Fullstack
+              </label>
+              <label>
+                <CheckboxField
+                  name="role"
+                  type="checkbox"
+                  {...register("role")}
+                  value="Frontend"
+                />
+                Frontend
+              </label>
+              <label>
+                <CheckboxField
+                  name="role"
+                  type="checkbox"
+                  {...register("role")}
+                  value="Backend"
+                />
+                Backend
+              </label>
+              <label>
+                <CheckboxField
+                  name="role"
+                  type="checkbox"
+                  {...register("role")}
+                  value="UX/UI designer"
+                />
+                UX/UI designer
+              </label>
+              <label>
+                <CheckboxField
+                  name="role"
+                  type="checkbox"
+                  {...register("role")}
+                  value="QA"
+                />
+                QA
+              </label>
+              <label>
+                <CheckboxField
+                  name="role"
+                  type="checkbox"
+                  {...register("role")}
+                  value="Project manager"
+                />
+                Project manager
+              </label>
+            </CheckboxGroup>
+          </FormItem>
+          {/* <FormItem>
+            <label>Role*</label>
             <FormFieldSelect
-              // name="stack"
-              {...register("stack")}
+              // name="role"
+              {...register("role")}
             >
               <option value=""></option>
               <option value="Fullstack">Fullstack</option>
@@ -70,7 +131,7 @@ const JoinTeamForm = ({ onSubmit }) => {
               <option value="Project manager">Project manager</option>
               <option value="QA">QA</option>
             </FormFieldSelect>
-          </FormItem>
+          </FormItem> */}
           <FormItem>
             <label>Photo</label>
             <FormField name="photo" type="text" />

@@ -11,9 +11,19 @@ const teamMemberSchema = new Schema(
     email: {
       type: String,
     },
-    stack: {
-      type: String,
-    },
+    role: [
+      {
+        type: String,
+        enum: [
+          "Fullstack",
+          "Frontend",
+          "Backend",
+          "QA",
+          "Project manager",
+          "UX/UI designer",
+        ],
+      },
+    ],
     photoUrl: {
       type: String,
       default: "",

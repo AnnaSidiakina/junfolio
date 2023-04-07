@@ -39,7 +39,7 @@ export default async function handler(req, res) {
             email,
             photoUrl,
             portfolio,
-            stack,
+            role,
           },
           { new: true }
         );
