@@ -1,6 +1,6 @@
 import { Schema, model, models, SchemaTypes } from "mongoose";
 
-const teamMemberSchema = Schema(
+const teamMemberSchema = new Schema(
   {
     firstName: {
       type: String,
@@ -16,6 +16,7 @@ const teamMemberSchema = Schema(
     },
     photoUrl: {
       type: String,
+      default: "",
     },
     allowed: {
       type: Boolean,
