@@ -1,6 +1,14 @@
-import Image from "next/image";
 import Heading from "../../components/Heading";
-import Link from "next/link";
+import { Section } from "@component/components/Section.styled";
+import { Container } from "@component/components/Container.styled";
+import {
+  PortfolioList,
+  PortfolioItem,
+  PortfolioImage,
+  DescriptionContainer,
+  PortfolioDescription,
+  ReadMoreLink,
+} from "./Portfolio.styled";
 
 export const getStaticProps = async () => {
   const response = await fetch("http://localhost:3000/api/portfolio");
@@ -22,21 +30,29 @@ export const getStaticProps = async () => {
 const Portfolio = ({ portfolio }) => {
   return (
     <>
-      <Heading text="Portfolio" />
-      <ul>
-        {portfolio.map(({ _id, description, imageUrl }) => (
-          <li key={_id}>
-            <Image
-              src={imageUrl}
-              alt="Project image"
-              width={320}
-              height={320}
-            />
-            <p>{description}</p>
-            <Link href={`/portfolio/${_id}`}>Read more</Link>
-          </li>
-        ))}
-      </ul>
+      <Section>
+        <Container>
+          <Heading text="Portfolio" />
+          <PortfolioList>
+            {portfolio.map(({ _id, description, imageUrl }) => (
+              <PortfolioItem key={_id}>
+                <PortfolioImage
+                  src={imageUrl}
+                  alt="Project image"
+                  width={320}
+                  height={320}
+                />
+                <DescriptionContainer>
+                  <PortfolioDescription>{description}</PortfolioDescription>
+                  <ReadMoreLink href={`/portfolio/${_id}`}>
+                    Read more
+                  </ReadMoreLink>
+                </DescriptionContainer>
+              </PortfolioItem>
+            ))}
+          </PortfolioList>
+        </Container>
+      </Section>
     </>
   );
 };
