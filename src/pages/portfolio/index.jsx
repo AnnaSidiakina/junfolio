@@ -1,17 +1,21 @@
 import Heading from "../../components/Heading";
 import { Section } from "@component/components/Section.styled";
 import { Container } from "@component/components/Container.styled";
-import {
-  PortfolioList,
-  PortfolioItem,
-  PortfolioImage,
-  DescriptionContainer,
-  PortfolioDescription,
-  ReadMoreLink,
-} from "./Portfolio.styled";
+// import {
+//   PortfolioList,
+//   PortfolioItem,
+//   PortfolioImage,
+//   DescriptionContainer,
+//   PortfolioDescription,
+//   ReadMoreLink,
+// } from "./Portfolio.styled";
+import Link from "next/link";
+import Image from "next/image";
 
-export const getStaticProps = async () => {
-  const response = await fetch("http://localhost:3000/api/portfolio");
+const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
+
+export const getServerSideProps = async () => {
+  const response = await fetch(`${BACKEND_BASE_URL}/api/portfolio`);
   const res = await response.json();
 
   if (!res) {
@@ -33,24 +37,22 @@ const Portfolio = ({ portfolio }) => {
       <Section>
         <Container>
           <Heading text="Portfolio" />
-          <PortfolioList>
+          <ul>
             {portfolio.map(({ _id, description, imageUrl }) => (
-              <PortfolioItem key={_id}>
-                <PortfolioImage
+              <li key={_id}>
+                <Image
                   src={imageUrl}
                   alt="Project image"
                   width={320}
                   height={320}
                 />
-                <DescriptionContainer>
-                  <PortfolioDescription>{description}</PortfolioDescription>
-                  <ReadMoreLink href={`/portfolio/${_id}`}>
-                    Read more
-                  </ReadMoreLink>
-                </DescriptionContainer>
-              </PortfolioItem>
+                <div>
+                  <p>{description}</p>
+                  <Link href={`/portfolio/${_id}`}>Read more</Link>
+                </div>
+              </li>
             ))}
-          </PortfolioList>
+          </ul>
         </Container>
       </Section>
     </>
